@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 # from rest_framework.decorators import api_view
 
-from .models import Car
+from .models import Order
+# from .models import Car,FuelType,CarType,Payments,Order
 
 
 class RegisterView(generics.CreateAPIView):
@@ -26,44 +27,128 @@ class SigninView(APIView):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class Carlist(ListAPIView):
-    queryset = Car.objects.all()
-    serializer_class = serializers.CarSerializer
+class Orderlist(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = serializers.OrderSerializer
 
-class Carcreate(CreateAPIView):
-    serializer_class = serializers.CarSerializer
+class OrderCreate(CreateAPIView):
+    serializer_class = serializers.OrderSerializer
 
-class CarUpdateView(UpdateAPIView):
-    queryset = Car.objects.all()
-    serializer_class = serializers.CarUpdateSerializer
+class OrderUpdateView(UpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = serializers.OrderUpdateSerializer
     lookup_field = 'id'
-    lookup_url_kwarg = 'carId'
-    # def update(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
+    lookup_url_kwarg = 'orderId'
 
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response({"message": "Car updated successfully"},status=HTTP_200_OK)
+class UserOrderslist(ListAPIView):
+    # queryset = Order.objects.filter()
+    serializer_class = serializers.UserOrdersSerializer
+    def get_queryset(self):
+        username = self.kwargs['username']
+        if username is not None:
+            queryset = Order.objects.filter(user=username)
+        else:
+            queryset = None
+        return queryset
 
-    #     else:
-    #         return Response({"message": "failed", "details": serializer.errors},status=HTTP_400_BAD_REQUEST)
+class GetOrder(ListAPIView):
+    # queryset = Order.objects.filter()
+    serializer_class = serializers.OrderSerializer
+    def get_queryset(self):
+        order_id = self.kwargs['order_id']
+        if order_id is not None:
+            queryset = Order.objects.filter(id=order_id)
+        else:
+            queryset = None
+        return queryset
 
-
-class CarDeleteView(DestroyAPIView):
-    queryset = Car.objects.all()
-    serializer_class = serializers.CarSerializer
+class OrderDelete(DestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = serializers.OrderSerializer
     lookup_field = 'id'
-    lookup_url_kwarg = 'carId'
-    # def delete(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
+    lookup_url_kwarg = 'orderId'
 
-    #     if serializer.is_valid():
-    #         serializer.de
-    #         return Response({"message": "Car deleted successfully"},status=HTTP_200_OK)
+# class FuelTypelist(ListAPIView):
+#     queryset = FuelType.objects.all()
+#     serializer_class = serializers.FuelTypeSerializer
 
-    #     else:
-    #         return Response({"message": "failed", "details": serializer.errors},status=HTTP_400_BAD_REQUEST)
-    
+# class FuelTypeCreate(CreateAPIView):
+#     serializer_class = serializers.FuelTypeSerializer
 
+# class FuelTypeUpdateView(UpdateAPIView):
+#     queryset = FuelType.objects.all()
+#     serializer_class = serializers.FuelTypeUpdateSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'fuelId'
+
+# class CarTypelist(ListAPIView):
+#     queryset = CarType.objects.all()
+#     serializer_class = serializers.CarTypeSerializer
+
+# class CarTypeCreate(CreateAPIView):
+#     serializer_class = serializers.CarTypeSerializer
+
+# class CarTypeUpdateView(UpdateAPIView):
+#     queryset = CarType.objects.all()
+#     serializer_class = serializers.CarTypeUpdateSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'carId'
+
+# class Carlist(ListAPIView):
+#     queryset = Car.objects.all()
+#     serializer_class = serializers.CarSerializer
+
+# class Carcreate(CreateAPIView):
+#     serializer_class = serializers.CarSerializer
+
+# class CarUpdateView(UpdateAPIView):
+#     queryset = Car.objects.all()
+#     serializer_class = serializers.CarUpdateSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'carId'
+#     # def update(self, request, *args, **kwargs):
+#     #     instance = self.get_object()
+#     #     serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+#     #     if serializer.is_valid():
+#     #         serializer.save()
+#     #         return Response({"message": "Car updated successfully"},status=HTTP_200_OK)
+
+#     #     else:
+#     #         return Response({"message": "failed", "details": serializer.errors},status=HTTP_400_BAD_REQUEST)
+
+
+# class CarDeleteView(DestroyAPIView):
+#     queryset = Car.objects.all()
+#     serializer_class = serializers.CarSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'carId'
+   
+
+
+# class Paymentslist(ListAPIView):
+#     queryset = Payments.objects.all()
+#     serializer_class = serializers.PaymentsSerializer
+
+# class PaymentsCreate(CreateAPIView):
+#     serializer_class = serializers.PaymentsSerializer
+
+# class PaymentsUpdateView(UpdateAPIView):
+#     queryset = Payments.objects.all()
+#     serializer_class = serializers.PaymentsUpdateSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'paymentId'
+
+
+# class Orderlist(ListAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = serializers.OrderSerializer
+
+# class OrderCreate(CreateAPIView):
+#     serializer_class = serializers.OrderSerializer
+
+# class OrderUpdateView(UpdateAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = serializers.OrderUpdateSerializer
+#     lookup_field = 'id'
+#     lookup_url_kwarg = 'orderId'

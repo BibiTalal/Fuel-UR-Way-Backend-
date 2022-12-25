@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
-from Fuel_UR_Way.models import  Car
+from Fuel_UR_Way.models import Order
+# from Fuel_UR_Way.models import  Car,FuelType,CarType,Payments,Order
+
 User = get_user_model()
 
 # Authentications Serializers ..
@@ -58,18 +60,84 @@ class SigninSerializer(serializers.Serializer):
         data["access"] = token
         return data
 
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id','user','carType','fuelType','litter','address','date','time','price','payed','status']
+        
+
+       
+class OrderUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['status']
+
+class UserOrdersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id','user','carType','fuelType','address']
+        
 # Category Serializer ..
 
 
+# class FuelTypeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FuelType
+#         fields = ['id','name', 'price']
 
-class CarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Car
-        fields = ['id','carType', 'fuleType', 'owner']
+# class FuelTypeUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FuelType
+#         fields = ['name', 'price']       
+
+# class CarTypeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CarType
+#         fields = ['id','brand']
+
+# class CarTypeUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CarType
+#         fields = ['brand']  
+
+# class CarSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Car
+#         fields = ['id','carType', 'fuleType', 'user']
         
 
-class CarUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Car
-        fields = ['carType', 'fuleType', 'owner']
+# class CarUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Car
+#         fields = ['carType', 'fuleType', 'user']
 
+
+# class PaymentsSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Payments
+#         fields = ['id','method']
+        
+
+# class PaymentsUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Payments
+#         fields = ['method']
+
+# class OrderSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Order
+#         fields = ['id','user','carType','fuelType','litter','address','date','time','price','payed','status']
+        
+
+       
+# class OrderUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Order
+#         fields = ['status']
+
+# class UserOrdersSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Order
+#         fields = ['id','user','carType','fuelType','address']
+        
