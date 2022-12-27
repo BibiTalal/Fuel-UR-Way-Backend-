@@ -27,6 +27,7 @@ class SigninView(APIView):
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
+
 class Orderlist(ListAPIView):
     queryset = Order.objects.all()
     serializer_class = serializers.OrderSerializer
@@ -67,7 +68,7 @@ class OrderDelete(DestroyAPIView):
     serializer_class = serializers.OrderSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'orderId'
-
+    
 # class FuelTypelist(ListAPIView):
 #     queryset = FuelType.objects.all()
 #     serializer_class = serializers.FuelTypeSerializer

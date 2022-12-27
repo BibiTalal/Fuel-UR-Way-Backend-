@@ -64,7 +64,7 @@ class SigninSerializer(serializers.Serializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id','user','carType','fuelType','litter','address','date','time','price','payed','status']
+        fields = ['id','user','carType','fuelType','litter','address','date','time','price','payed','status','extraService']
         
 
        
@@ -76,7 +76,7 @@ class OrderUpdateSerializer(serializers.ModelSerializer):
 class UserOrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id','user','carType','fuelType','address']
+        fields = ['id','user','carType','fuelType','litter','address','date','time','price','payed','status','extraService']
         
 # Category Serializer ..
 

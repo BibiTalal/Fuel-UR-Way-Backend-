@@ -15,6 +15,7 @@ class Order (models.Model):
     price = models.FloatField()
     payed = models.TextField()
     status = models.BooleanField()
+    extraService = models.TextField()
     def __str__(self):
         return self.carType
 

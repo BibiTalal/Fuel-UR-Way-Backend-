@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("signin/", views.SigninView.as_view(), name="signin"),
     path("register/", views.RegisterView.as_view(), name="register"),
+  
     #Order
     path('list/order/', views.Orderlist.as_view(), name='orderList'),
     path('create/order/', views.OrderCreate.as_view(), name='create-order'),
